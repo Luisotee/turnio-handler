@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import path from "path";
 import { AudioResponse, FireRequestBody, ImageResponse, MediaItem } from "../types/fire";
 import { login } from "../utils/auth";
-import { cleanupMedia, downloadMedia } from "../utils/media";
+import { cleanupMedia, downloadMedia, isValidMediaId } from "../utils/media";
 import {
   convertStateToUF,
   getFireStatusValue,
@@ -38,18 +38,22 @@ router.post("/", async (req: Request<{}, {}, FireRequestBody>, res: Response) =>
       password,
     } = req.body;
 
-    if (imageId) {
+    if (imageId && isValidMediaId(imageId, "images")) {
       console.log("\n=== DOWNLOADING IMAGE ===");
       const imagePath = await downloadMedia(imageId, "images");
       console.log("Image downloaded to:", imagePath);
       downloadedFiles.push(imagePath);
+    } else if (imageId) {
+      console.log("Invalid or skipped image ID:", imageId);
     }
 
-    if (audioId) {
+    if (audioId && isValidMediaId(audioId, "audios")) {
       console.log("\n=== DOWNLOADING AUDIO ===");
       const audioPath = await downloadMedia(audioId, "audios");
       console.log("Audio downloaded to:", audioPath);
       downloadedFiles.push(audioPath);
+    } else if (audioId) {
+      console.log("Invalid or skipped audio ID:", audioId);
     }
 
     console.log("\n=== LOGGING IN ===");
