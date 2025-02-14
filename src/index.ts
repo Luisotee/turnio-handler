@@ -1,15 +1,14 @@
 import "dotenv/config";
 import express from "express";
 import fireRouter from "./routes/fire";
+import alertRouter from "./routes/alert";
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Use JSON middleware to parse incoming requests.
 app.use(express.json());
-
-// Mount the /fire route.
 app.use("/fire", fireRouter);
+app.use("/alert", alertRouter);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
