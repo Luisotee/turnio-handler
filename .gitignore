@@ -45,3 +45,6 @@ coverage/
 # Temp files
 tmp/
 temp/
+
+data
+
