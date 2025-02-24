@@ -48,6 +48,12 @@ const fireStatusToValue: Record<string, number> = {
   Extinto: 4,
 };
 
+const racTypeToEnglish: Record<string, string> = {
+  Prevenção: "prevention",
+  Monitoramento: "Monitoramento",
+  "Educação Ambiental": "environmental_education",
+};
+
 export function convertStateToUF(stateName: string): string {
   return stateToUF[stateName] || stateName;
 }
@@ -58,4 +64,8 @@ export function getFireStatusValue(status: string): number {
 
 export function parseDateToISO(dateStr: string): string {
   return new Date(dateStr).toISOString();
+}
+
+export function convertRacType(racType: string): string {
+  return racTypeToEnglish[racType] || racType;
 }
