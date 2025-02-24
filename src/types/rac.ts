@@ -7,6 +7,10 @@ export interface RacRequestBody {
   start_rac_time: string;
   cpf: string;
   password: string;
+  location: {
+    type: "Point";
+    coordinates: [string, string];
+  };
 }
 
 export interface RacPayload {
@@ -16,6 +20,12 @@ export interface RacPayload {
   users_involved: number;
   start_rac_date: string;
   start_rac_time: string;
+  local_especification: string;
+  commentary: string;
+  location: {
+    type: "Point";
+    coordinates: [number, number];
+  };
 }
 
 export interface RacResponse {

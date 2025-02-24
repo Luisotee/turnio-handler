@@ -34,6 +34,7 @@ router.post("/", async (req: Request<{}, {}, RacRequestBody>, res: Response) => 
       start_rac_time,
       cpf,
       password,
+      location,
     } = req.body;
 
     console.log("\n=== LOGGING IN ===");
@@ -54,6 +55,15 @@ router.post("/", async (req: Request<{}, {}, RacRequestBody>, res: Response) => 
       users_involved: parseInt(users_involved, 10),
       start_rac_date,
       start_rac_time: cleanTime,
+      local_especification: "N/A", // Default value if not provided
+      commentary: "N/A", // Default value if not provided
+      location: {
+        type: "Point",
+        coordinates: [
+          parseFloat(location.coordinates[0]),
+          parseFloat(location.coordinates[1]),
+        ],
+      },
     };
 
     console.log("\n=== SENDING RAC REQUEST ===");
